@@ -1,0 +1,3 @@
+start by sending messages and printing them in console
+
+once that's working, install material design and start it with that
