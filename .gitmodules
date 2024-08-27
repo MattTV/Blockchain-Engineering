@@ -1,0 +1,3 @@
+[submodule "BEN-5/uhrp-ui-lab"]
+	path = BEN-5/uhrp-ui-lab
+	url = https://github.com/p2ppsr/uhrp-ui-lab
