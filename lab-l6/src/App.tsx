@@ -1,11 +1,13 @@
-import React, { useState } from 'react'
-import { Container, Typography, Grid, List, ListItem, ListItemText, Autocomplete, TextField } from '@mui/material'
+import React, { useState, useEffect } from 'react'
+import { Container, Typography, Grid, List, ListItem, ListItemText, ListItemIcon, Autocomplete, TextField } from '@mui/material'
 import useAsyncEffect from 'use-async-effect'
 import { discoverByIdentityKey, discoverByAttributes } from '@babbage/sdk-ts'
 import { parseIdentity, TrustLookupResult, Identity } from 'identinator'
+import { Img } from 'uhrp-react'
 
 const App: React.FC = () => {
   const [identity, setIdentity] = useState<Identity | null>(null)
+  const [keyAvatar, setKeyAvatar] = useState<string | undefined>(undefined)
   const [searchTerm, setSearchTerm] = useState<string>('')
   const [nameResults, setNameResults] = useState<string[]>([])
   
@@ -20,6 +22,11 @@ const App: React.FC = () => {
     setIdentity(parseIdentity(id))
   }, [])
 
+  // When the key identity changes, grab the avatar
+  useEffect(() => {
+    setKeyAvatar(identity?.avatarURL)
+  }, [identity])
+
   // Use discoverByAttributes to search for matching identities
   useAsyncEffect(async () => {
     const results = await discoverByAttributes({
@@ -31,6 +38,8 @@ const App: React.FC = () => {
     const lookupResults = results as TrustLookupResult[]
 
     const searchResults = lookupResults.map(result => parseIdentity(result))
+
+    console.log(searchResults)
 
     setNameResults(searchResults.map(result => result.name))
   }, [searchTerm])
@@ -44,6 +53,9 @@ const App: React.FC = () => {
         {/* Display identity information here */}
           <List>
             <ListItem>
+              <ListItemIcon>
+                <Img src={keyAvatar} confederacyHost={'https://staging-confederacy.babbage.systems'} />
+              </ListItemIcon>
               <ListItemText
                 primary={identity?.name}
                 secondary={identity?.badgeLabel} />
