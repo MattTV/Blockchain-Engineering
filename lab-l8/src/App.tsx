@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Container, TextField, Button, List, Card, CardContent, Typography, Grid, CardActions, MenuItem, Dialog, DialogTitle, DialogActions, DialogContent } from '@mui/material'
+import { Box, Container, TextField, Button, List, Card, CardContent, Typography, Grid, CardActions, MenuItem, Dialog, DialogTitle, DialogActions, DialogContent } from '@mui/material'
 // TODO: Import necessary modules from PushDrop and Babbage SDK
 import { createAction, getTransactionOutputs, CreateActionResult, EnvelopeApi, EnvelopeEvidenceApi } from '@babbage/sdk-ts'
 import pushdrop from 'pushdrop'
@@ -98,8 +98,8 @@ const App: React.FC = () => {
         envelope: newEnvelope,
       }
       
-      //setCards()
-      setCards( cards => [...cards, newCard] )
+      //setCards( cards => [...cards, newCard] )
+      loadCards()
 
       setIsLoading(false)
       setCreatingCard(false)
@@ -192,17 +192,21 @@ const App: React.FC = () => {
 
   return (
     <Container maxWidth="md" sx={{ paddingTop: '3em' }}>
-      <Typography variant="h3" gutterBottom>
+      <Typography align='center' variant="h3" gutterBottom>
         Collectible Card Creator
       </Typography>
 
-      <Button onClick={() => { setCreatingCard(true) }}>Create Card</Button>
+      <Box sx={{display: 'flex', justifyContent: 'center'}}>
+        <Button variant='contained' onClick={() => { setCreatingCard(true) }}>Create Card</Button>
+      </Box>
 
-      <Grid container>
+      <br></br>
+
+      <Grid container sx={{display: 'flex', justifyContent: 'center'}}>
         {/* TODO: Create a form for new cards, and display existing cards */}
         {cards.map((card) => {
           return (
-            <Card key={card.keyID} sx={{minWidth: 200, maxWidth: 200}}>
+            <Card key={card.keyID} sx={{minWidth: 200, maxWidth: 200, margin: 1}}>
               <CardContent>
                 <Typography variant="h5">{card.name}</Typography>
                 <Typography>{card.description}</Typography><br></br>
