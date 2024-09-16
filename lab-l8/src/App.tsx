@@ -79,6 +79,8 @@ const App: React.FC = () => {
       const newEnvelope: EnvelopeApi = {
         rawTx: newCardToken.rawTx || '',
         inputs: newCardToken.inputs as Record<string,EnvelopeEvidenceApi>,
+        txid: newCardToken.txid,
+        mapiResponses: newCardToken.mapiResponses,
       }
 
       // add the new card to the set of cards
