@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import { Button, Typography, Container, CircularProgress } from '@mui/material'
 import { AuthriteClient } from 'authrite-js'
 
-const KEY = '6dcc124be5f382be631d49ba12f61adbce33a5ac14f6ddee12de25272f943f8b'
-const PORT = 3000
-const SERVER_URL: string = 'http://localhost:3000'
+const KEY: string = '6dcc124be5f382be631d49ba12f61adbce33a5ac14f6ddee12de25272f943f8b'
+const PORT: number = 3000
+const SERVER_URL: string = `localhost:${PORT.toString()}`
 
 const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false)
@@ -28,6 +28,9 @@ const App: React.FC = () => {
       user: 'Matt',
       message: 'Rocket League is goated',
     }
+
+    console.log(new URL(`${SERVER_URL}/protected`))
+    console.log(new URL(`localhost:3000/protected`))
 
     // Create the request
     const response = await authrite.createSignedRequest('/protected', {
