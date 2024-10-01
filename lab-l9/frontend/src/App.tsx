@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import { Button, Typography, Container, CircularProgress } from '@mui/material'
 import { AuthriteClient } from 'authrite-js'
 
-const KEY: string = '6dcc124be5f382be631d49ba12f61adbce33a5ac14f6ddee12de25272f943f8b'
-const PORT: number = 3000
-const SERVER_URL: string = `localhost:${PORT.toString()}`
+const KEY = '6dcc124be5f382be631d49ba12f61adbce33a5ac14f6ddee12de25272f943f8b'
+const PORT = 3000
+const SERVER_URL = `http://localhost:${PORT.toString()}`
 
 const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false)
@@ -16,11 +16,8 @@ const App: React.FC = () => {
     setIsLoading(true)
 
     // Create an Authrite Client instance
-    const authrite = new AuthriteClient({
-      serverURL: SERVER_URL,
-      authriteParams: {
-        clientPrivateKey: KEY,
-      }
+    const authrite = new AuthriteClient(SERVER_URL, {
+      clientPrivateKey: KEY,
     })
 
     // Create the body of the request
@@ -29,11 +26,8 @@ const App: React.FC = () => {
       message: 'Rocket League is goated',
     }
 
-    console.log(new URL(`${SERVER_URL}/protected`))
-    console.log(new URL(`localhost:3000/protected`))
-
     // Create the request
-    const response = await authrite.createSignedRequest('/protected', {
+    const res = await authrite.createSignedRequest('/protected', {
       body,
       method: 'POST',
       headers: {
@@ -42,7 +36,7 @@ const App: React.FC = () => {
     })
 
     // Parse the response
-    setResponse(JSON.parse(Buffer.from(response.body).toString('utf8')))
+    setResponse(JSON.stringify(res))
 
     setIsLoading(false)
   }

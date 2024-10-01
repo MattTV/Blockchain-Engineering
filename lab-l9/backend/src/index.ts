@@ -13,11 +13,11 @@ declare module 'express-serve-static-core' {
 }
 
 const app: Express = express()
-const PORT: number = 3000
+const PORT = 3000
 
 // TODO: Define the server private key and base URL
-const PRIVATE_KEY: string = '0d7889a0e56684ba795e9b1e28eb906df43454f8172ff3f6807b8cf9464994df'
-const SERVER_URL: string = `http://localhost:${PORT.toString()}`
+const PRIVATE_KEY = '0d7889a0e56684ba795e9b1e28eb906df43454f8172ff3f6807b8cf9464994df'
+const SERVER_URL = `http://localhost:${PORT.toString()}`
 
 // Middleware
 app.use(bodyParser.json())
