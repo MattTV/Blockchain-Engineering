@@ -12,37 +12,6 @@ const App: React.FC = () => {
   const [response, setResponse] = useState<string | null>(null)
   const [weather, setWeather] = useState<any | null>(null)
 
-  const handleButtonClick = async () => {
-    // TODO: Create an instance of AuthriteClient and make a signed request to '/protected'
-    
-    setIsLoading(true)
-
-    // Create an Authrite Client instance
-    const authrite = new AuthriteClient(SERVER_URL, {
-      clientPrivateKey: KEY,
-    })
-
-    // Create the body of the request
-    const body = {
-      user: 'Matt',
-      message: 'Rocket League is goated',
-    }
-
-    // Create the request
-    const res = await authrite.createSignedRequest('/protected', {
-      body,
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-
-    // Parse the response
-    setResponse(JSON.stringify(res))
-
-    setIsLoading(false)
-  }
-
   const handleWeatherRequest = async () => {
     
     setIsLoading(true)
@@ -78,14 +47,6 @@ const App: React.FC = () => {
       <Typography variant="h4" component="h1" gutterBottom>
         Frontend App
       </Typography>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={handleButtonClick}
-        disabled={isLoading}
-      >
-        {isLoading ? <CircularProgress size={24} /> : 'Send Request to Backend'}
-      </Button>
       <Button
         variant="contained"
         color="primary"
