@@ -14,10 +14,13 @@
   "author": "",
   "license": "Open BSV License",
   "dependencies": {
+    "@bsv/sdk": "^1.1.24",
     "body-parser": "^1.20.2",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
-    "ninja-base": "^0.3.52"
+    "ninja-base": "^0.3.52",
+    "pushdrop": "^0.1.64",
+    "secure-random": "^1.1.2"
   },
   "devDependencies": {
     "@types/body-parser": "^1.19.5",

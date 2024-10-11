@@ -19,6 +19,7 @@ const App: React.FC = () => {
         headers: {
           'Content-Type': 'application/json',
         },
+        body: JSON.stringify( { eventData: 'test test' } )
       })
 
       setTransaction(await response.json())
@@ -49,11 +50,11 @@ const App: React.FC = () => {
         >
           {isLoading ? <CircularProgress size={24} /> : 'Send Event Log Request'}
         </Button>
-      {transaction && (
+      {/* {transaction && (
         <Typography variant="body1" style={{ marginTop: '20px' }}>
           TXID from backend: {transaction.TXID}
         </Typography>
-      )}
+      )} */}
     </Container>
   )
 }
