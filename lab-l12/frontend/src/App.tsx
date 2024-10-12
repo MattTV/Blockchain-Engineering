@@ -7,7 +7,7 @@ const SERVER_URL = `http://localhost:${PORT.toString()}`
 
 const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false)
-  const [transaction, setTransaction] = useState<Object | null>(null)
+  const [transaction, setTransaction] = useState<string>('')
 
   const handleLogEventRequest = async () => {
     
@@ -22,8 +22,21 @@ const App: React.FC = () => {
         body: JSON.stringify( { eventData: 'test test' } )
       })
 
-      setTransaction(await response.json())
-      console.log(await response.json())
+      const txid = await response.json()
+
+      console.log(txid)
+
+      setTransaction(txid.tx)
+
+      // const reader = response.body?.getReader()
+      // console.log(await reader)
+      // const txid = await reader?.read()
+      // const txidd = txid?.value
+      // console.log(txidd)
+      // console.log((await reader?.read().value?.toString())
+      // console.log(response)
+      // console.log(response.body?.getReader)
+      // console.log(JSON.parse(response.body))
 
     } catch (error) {
 
@@ -50,11 +63,11 @@ const App: React.FC = () => {
         >
           {isLoading ? <CircularProgress size={24} /> : 'Send Event Log Request'}
         </Button>
-      {/* {transaction && (
+      {transaction && (
         <Typography variant="body1" style={{ marginTop: '20px' }}>
-          TXID from backend: {transaction.TXID}
+          TXID from backend: {transaction}
         </Typography>
-      )} */}
+      )}
     </Container>
   )
 }

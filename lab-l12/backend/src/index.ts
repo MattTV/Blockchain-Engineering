@@ -1,3 +1,4 @@
+import dotenv from 'dotenv'
 import express, { Express, Request, Response } from 'express'
 import bodyParser from 'body-parser'
 import { Ninja, NinjaV1Params } from 'ninja-base'
@@ -11,6 +12,7 @@ interface LogEventResponse {
   message: string
 }
 
+dotenv.config()
 const app: Express = express()
 const port = 3000
 
@@ -59,6 +61,8 @@ app.post('/log-event', async (req: Request, res: Response<LogEventResponse>) => 
     const time = Date.now()
     const endpoint = '/log-event'
 
+    console.log(`New request to ${endpoint} from ${ipAddr} at ${time}`)
+
     // TODO: Encrypt data
 
     // TODO: Generate key derivation info 
@@ -85,8 +89,10 @@ app.post('/log-event', async (req: Request, res: Response<LogEventResponse>) => 
 
     let tx = newToken.txid
 
+    console.log(`Event logged on blockchain, TXID: ${tx}`)
+
     // Respond with the transaction ID
-    res.status(200).json({ tx, message: 'Event logged on the blockchain' })
+    res.status(200).json({ tx, message: 'vent logged on the blockchain' })
   } catch (error) {
     console.error('Error logging event:', error)
     res.status(500).json({ tx: '', message: 'Failed to log event on the blockchain' })
